@@ -7,7 +7,7 @@
         兼容 PC、平板与移动端展示。
       </p>
       <div class="hero__actions">
-        <RouterLink to="/products" class="btn btn--primary">了解产品</RouterLink>
+        <RouterLink to="/courses" class="btn btn--primary">了解课程</RouterLink>
         <RouterLink to="/contact" class="btn btn--outline">联系我们</RouterLink>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer__inner">
-      <p class="footer__copy">&copy; {{ year }} 官网. All rights reserved.</p>
+      <p class="footer__copy">&copy; {{ year }} {{ $t('common.copyright') }}</p>
     </div>
   </footer>
 </template>
@@ -19,7 +19,7 @@ const year = new Date().getFullYear()
 .footer__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 24px;
+  padding: 15px;
   text-align: center;
 }
 

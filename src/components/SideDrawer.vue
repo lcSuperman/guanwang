@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useAppStore } from '@/stores/app'
-import { NAV_ITEMS } from '@/constants/nav'
+import NavMenu from '@/components/NavMenu.vue'
 
 const appStore = useAppStore()
 const route = useRoute()
+const { t } = useI18n()
 
 watch(
   () => route.path,
@@ -29,21 +31,15 @@ watch(
     <aside
       class="drawer"
       :class="{ 'is-open': appStore.isMobileMenuOpen }"
-      aria-label="侧边导航"
+      :aria-label="t('common.sideNav')"
       :aria-hidden="!appStore.isMobileMenuOpen"
     >
-      <nav class="drawer__nav">
-        <RouterLink
-          v-for="item in NAV_ITEMS"
-          :key="item.path"
-          :to="item.path"
-          class="drawer__link"
-          exact-active-class="is-active"
-          @click="appStore.closeMobileMenu()"
-        >
-          {{ item.label }}
-        </RouterLink>
-      </nav>
+      <NavMenu
+        v-if="appStore.isMobileMenuOpen"
+        mode="vertical"
+        class="drawer__nav"
+        @select="appStore.closeMobileMenu()"
+      />
     </aside>
   </Teleport>
 </template>
@@ -71,6 +67,7 @@ watch(
   transition: transform 0.3s ease;
   padding-top: calc(var(--header-height) + 16px);
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .drawer.is-open {
@@ -78,29 +75,7 @@ watch(
 }
 
 .drawer__nav {
-  display: flex;
-  flex-direction: column;
   padding: 8px 12px;
-}
-
-.drawer__link {
-  padding: 14px 16px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
-}
-
-.drawer__link:hover {
-  color: var(--primary);
-  background: var(--primary-light);
-}
-
-.drawer__link.is-active {
-  color: var(--primary);
-  background: var(--primary-light);
-  font-weight: 500;
 }
 
 .fade-enter-active,
